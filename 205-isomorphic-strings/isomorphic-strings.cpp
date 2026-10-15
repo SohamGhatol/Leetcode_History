@@ -1,17 +1,22 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        int n=s.size();
+        int lastS[256];
+        int lastT[256];
 
-        for(int i=0;i<n;i++){
-            for(int j=0;j<i;j++){
-                if((s[i]==s[j]&&t[i]!=t[j])||(t[i]==t[j]&&s[i]!=s[j])){
-                    return false;
-                }
+        fill(lastS, lastS + 256, -1);
+        fill(lastT, lastT + 256, -1);
+
+        for (int i = 0; i < s.size(); i++) {
+            if (lastS[(unsigned char)s[i]] !=
+                lastT[(unsigned char)t[i]]) {
+                return false;
             }
+
+            lastS[(unsigned char)s[i]] = i;
+            lastT[(unsigned char)t[i]] = i;
         }
 
         return true;
-        
     }
 };
